@@ -1,0 +1,7 @@
+torch>=2.0.0
+torchvision
+Pillow
+PyYAML
+pycocotools
+tqdm
+transformers
