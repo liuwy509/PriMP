@@ -9,7 +9,7 @@ Exact reproduction of all experimental tables in the paper requires additional p
 The following resources are not redistributed in this repository:
 
 - full public datasets;
-- pretrained GroundingDINO or GLIP checkpoints;
+- pretrained GroundingDINO checkpoints;
 - processed annotation files;
 - trained checkpoints;
 - experiment logs;
