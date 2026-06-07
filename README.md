@@ -10,36 +10,25 @@ This repository provides the core implementation of PriMP, including:
 
 - semantically enhanced prompt construction;
 - offline multimodal prototype-bank construction;
-- visual prototype and textual prototype utilities;
+- visual and textual prototype utilities;
 - uncertainty-aware adaptive gating;
-- prototype-based inference-time logit calibration;
-- example demo scripts and reproduction notes.
+- prototype-based inference-time logit calibration.
 
-## Planned Repository Structure
+## Code Organization
 
-This repository focuses on the core implementation of PriMP based on GroundingDINO. The released files are organized around semantically enhanced prompt construction, offline multimodal prototype construction, and inference-time prototype calibration.
+The codebase is organized around the following functional components:
 
 ```text
 PriMP/
-├── README.md
+├── groundingdino/      # GroundingDINO-based model and PriMP core modules
+├── demo/               # Minimal demo and example evaluation entry
+├── tools/              # Data preparation and auxiliary utilities
+├── docs/               # Data preparation and reproduction notes
 ├── requirements.txt
-├── groundingdino/
-│   ├── models/
-│   │   └── proto_from_support.py
-│   ├── prototype/
-│   │   └── prototype_builder.py
-│   ├── tools/
-│   │   ├── build_mm_proto_from_shot.py
-│   │   ├── make_text_protos.py
-│   │   └── eval_proto_branch.py
-│   └── util/
-│       └── syn_def_prompt.py
-├── demo/
-│   └── test_ap_on_coco_proto.py
-└── docs/
-    ├── data_preparation.md
-    └── reproduction_notes.md
+└── README.md
 ```
+
+The released implementation focuses on the core PriMP pipeline rather than full experimental-result reproduction scripts.
 
 ## Installation
 
@@ -55,44 +44,17 @@ pip install -r requirements.txt
 
 PriMP enriches category prompts by using class names, synonyms, and natural-language definitions. The original class-name prompt is retained as the primary textual input, while additional semantic prompts are used as supplementary evidence when reliable lexical information is available.
 
-The related implementation is mainly provided in:
-
-```text
-groundingdino/util/syn_def_prompt.py
-groundingdino/tools/make_text_protos.py
-```
-
 ### Offline Multimodal Prototype Bank
 
 Given a K-shot support set, PriMP constructs class-wise visual prototypes from support-region features and textual prototypes from semantically enhanced prompts. The resulting prototype bank is constructed offline and remains fixed during inference.
-
-The related implementation is mainly provided in:
-
-```text
-groundingdino/models/proto_from_support.py
-groundingdino/prototype/prototype_builder.py
-groundingdino/tools/build_mm_proto_from_shot.py
-```
 
 ### Uncertainty-Aware Adaptive Gating
 
 PriMP adopts an entropy-margin adaptive gating strategy to dynamically balance the semantic branch and the prototype branch. The gate increases the contribution of target-domain prototype evidence when the text branch is uncertain and the prototype branch provides discriminative evidence.
 
-The related implementation is included in:
-
-```text
-groundingdino/tools/eval_proto_branch.py
-```
-
 ### Inference-Time Logit Calibration
 
 During inference, PriMP fuses semantic-branch logits and prototype-branch logits in the logit space. This calibration process improves visual-semantic alignment under cross-domain few-shot settings while introducing only lightweight additional computation.
-
-The related implementation is included in:
-
-```text
-groundingdino/tools/eval_proto_branch.py
-```
 
 ## Data and Checkpoints
 
