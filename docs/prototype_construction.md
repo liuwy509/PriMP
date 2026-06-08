@@ -69,6 +69,11 @@ groundingdino/tools/make_text_protos.py
 groundingdino/util/syn_def_prompt.py
 ```
 
+The inference-time prototype calibration step is mainly related to:
+
+```text
+groundingdino/tools/eval_proto_branch.py
+```
 ## Notes
 
 This repository provides the core implementation of the prototype construction pipeline.
